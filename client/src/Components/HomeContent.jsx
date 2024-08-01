@@ -1,104 +1,78 @@
-import React from "react";
-import Slider from "react-slick";
+// src/components/HomeContent.js
+import React, { useState, useRef, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./HomeContent.css";
-import catsImage from "../assets/cats.jpg";
-import otherImage from "../assets/other.jpg";
-import Card from "./Cards";
 import CardSlider from "./HeadlineCard";
+import { Contact } from "./Contact";
+import Footer from "./Footer";
+import News from "./News";
+import Cards from "./Cards";
+import { fetchNewsData } from "../Api/ApiLoad";
+import { transformNewsData } from "../Api/ApiTransformation";
 
 const HomeContent = () => {
-  const setting = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [slidesData, setSlidesData] = useState([]);
+  const newContentRef = useRef(null);
 
-  const slidesData = [
-    {
-      id: 1, // Add an ID for routing
-      title: "Card Title 1",
-      description:
-        "This is a brief description of the news article. It gives a summary of the content.",
-      img: catsImage,
-      author: "Author Name 1",
-      date: "July 30, 2024",
-    },
-    {
-      id: 2, // Add an ID for routing
-      title: "Card Title 2",
-      description:
-        "This is another brief description of the news article. It gives a summary of the content.",
-      img: otherImage,
-      author: "Author Name 2",
-      date: "August 1, 2024",
-    },
-  ];
+  useEffect(() => {
+    const getData = async () => {
+      const apiData = await fetchNewsData();
+      const transformedData = transformNewsData(apiData);
+      console.log(transformNewsData);
+      setSlidesData(transformedData);
+    };
+
+    getData();
+  }, []);
 
   const cardsData = [
     {
+      id: 1,
       title: "Card 1",
       content: "This is card 1.",
       image: "https://via.placeholder.com/300",
     },
     {
+      id: 2,
       title: "Card 2",
       content: "This is card 2.",
       image: "https://via.placeholder.com/300",
     },
-    {
-      title: "Card 3",
-      content: "This is card 3.",
-      image: "https://via.placeholder.com/300",
-    },
-    {
-      title: "Card 3",
-      content: "This is card 3.",
-      image: "https://via.placeholder.com/300",
-    },
-    {
-      title: "Card 3",
-      content: "This is card 3.",
-      image: "https://via.placeholder.com/300",
-    },
-    {
-      title: "Card 3",
-      content: "This is card 3.",
-      image: "https://via.placeholder.com/300",
-    },
+    // Add more cards as needed...
   ];
 
-  const handleCardClick = (slideId) => {
-    console.log(`Card with ID ${slideId} clicked`);
+  const handleCardClick = (cardId) => {
+    setSelectedCard(cardId);
   };
+
+  useEffect(() => {
+    if (selectedCard && newContentRef.current) {
+      newContentRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [selectedCard]);
 
   return (
     <div className="main-body">
-      <div className="headline">
+      <div className="headline" id="home">
         <h1>Byte-Sized News</h1>
-        <CardSlider
-          slidesData={slidesData}
-          settings={setting}
-          handleCardClick={handleCardClick}
-        />
+        <CardSlider slidesData={slidesData} handleCardClick={handleCardClick} />
       </div>
-      <div className="sub-cont">
-        <div className="container">
-          {cardsData.map((card, index) => (
-            <Card
-              key={index}
-              title={card.title}
-              content={card.content}
-              image={card.image}
-            />
-          ))}
+      <div className="sub-cont" id="news">
+        <div className="sub-cont-head">
+          <h1>BYTES</h1>
         </div>
+        <Cards NewsData={cardsData} handleCardClick={handleCardClick} />
       </div>
+      <div className="conta">{/* <Contact /> */}</div>
+      {selectedCard && (
+        <div className="new-component-container" ref={newContentRef}>
+          <News cardId={selectedCard} />
+        </div>
+      )}
     </div>
   );
 };

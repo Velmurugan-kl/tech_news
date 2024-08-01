@@ -1,3 +1,4 @@
+/* HomeContent.css */
 .main-body {
   padding: 20px;
   background-color: #f0f0f0;
@@ -9,14 +10,43 @@ h1 {
 }
 
 .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
 .sub-cont {
-    padding-top:40px ;
+  padding-top: 40px;
   display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  /* min-height: 85vh; */
+  height: fit-content;
+}
+
+.sub-cont-head {
+  display: flex;
+  justify-content: center; 
+  width: 100%; 
+  margin-bottom: 20px; 
+}
+
+.new-component-container {
+  margin-top: 20px; /* Space between the grid and new component */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.new-component {
+  width: 80%; /* Adjust as needed */
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.conta{
+  padding-top: 5%;
+  margin: auto;
+  max-width: 800px;
 }

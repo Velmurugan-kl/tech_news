@@ -1,0 +1,63 @@
+.reviewed-content-wrapper {
+  padding: 20px;
+}
+
+.reviewed-content-wrapper h2 {
+  margin-bottom: 20px;
+}
+
+.review-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-user {
+  font-weight: bold;
+}
+
+.review-rating {
+  font-size: 1.2rem;
+  color: #ffba5a; /* Adjust color to match your theme */
+}
+
+.review-card-body {
+  margin-top: 10px;
+}
+
+.review-comment {
+  font-size: 1rem;
+  color: #333;
+}
+
+.review-card-footer {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .review-card {
+    padding: 10px;
+  }
+
+  .review-rating {
+    font-size: 1rem;
+  }
+}

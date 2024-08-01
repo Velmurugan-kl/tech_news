@@ -3,14 +3,32 @@ import React from "react";
 import Slider from "react-slick"; // Assuming you are using react-slick
 import "./HeadlineCard.css"; // Import CSS for the card slider styles
 
-const CardSlider = ({ slidesData, settings, handleCardClick }) => {
+const CardSlider = ({ slidesData, handleCardClick }) => {
+  const settings = {
+    dots: false,
+    arrows:false,
+    infinite: true,
+    speed: 500,
+    // fade:true,
+    centerMode:true,
+    // focusOnSelect:true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  const openLink = (url) => {
+    window.open(url,"_blank");
+  };
+
   return (
     <Slider {...settings}>
       {slidesData.map((slide) => (
         <div
           key={slide.id}
           className="card-container"
-          onClick={() => handleCardClick(slide.id)}
+          onClick={() => openLink(slide.page)}
         >
           <div className="card-img">
             <img src={slide.img} alt="Article" />
@@ -25,6 +43,7 @@ const CardSlider = ({ slidesData, settings, handleCardClick }) => {
         </div>
       ))}
     </Slider>
+    
   );
 };
 

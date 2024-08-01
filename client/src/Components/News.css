@@ -1,0 +1,260 @@
+.pros ul li::before {
+    content: '+ '; 
+    color: green;
+    position: left;
+    left: 0; 
+  }
+  
+  .cons ul li::before {
+    content: '- '; 
+    color: red;
+    position: left; 
+    right: 0; 
+  }
+
+  /* General Styles */
+/* body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    transition: background-color 0.3s, color 0.3s;
+  } */
+  
+  .review-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Dark Mode Styles */
+  .dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+  }
+  
+  .dark-mode .review-container {
+    background-color: #444;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  }
+  
+  .dark-mode .header {
+    background-color: #222;
+  }
+  
+  .dark-mode .spec-table td,
+  .dark-mode .pros-cons-table td {
+    border: 1px solid #555;
+  }
+  
+  .dark-mode .hero-image {
+    filter: brightness(80%);
+  }
+  
+  .dark-mode .dark-mode-toggle {
+    background-color: #444;
+    color: #f4f4f4;
+    border: 1px solid #666;
+  }
+  
+  /* Header Styles */
+  .header {
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+  }
+  
+  .dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #ddd;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dark-mode-toggle:hover {
+    background-color: #ccc;
+  }
+  
+  /* Main Content Styles */
+  .review-content {
+    padding: 20px;
+  }
+  
+  .review-hero {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+  }
+  
+  .hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+    transition: filter 0.3s;
+  }
+  
+  .hero-text {
+    flex: 1;
+  }
+  
+  .hero-text h2 {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+  
+  .hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  /* Specifications Section */
+  .specifications {
+    margin-bottom: 30px;
+  }
+  
+  .specifications h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    transition: background-color 0.3s;
+  }
+  
+  .spec-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .spec-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .spec-table tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  
+  .spec-table td:first-child {
+    font-weight: bold;
+  }
+  
+  /* Pros and Cons Section */
+  .pros-cons {
+    margin-bottom: 30px;
+  }
+  
+  .pros-cons h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .pros-cons-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .pros-cons-table td {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+  
+  .pros {
+    background-color: #dfffd8;
+    text-align: left;
+  }
+  
+  .cons {
+    background-color: #fdd;
+    text-align: left;
+  }
+  
+  .pros-cons-table h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  
+  .pros-cons-table ul {
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pros-cons-table ul li {
+    font-size: 1.1rem;
+    padding: 5px 0;
+  }
+  
+  /* Review Sections */
+  .performance-review, .design-review, .conclusion {
+    margin-bottom: 30px;
+  }
+  
+  .performance-review h2, .design-review h2, .conclusion h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .performance-review p, .design-review p, .conclusion p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background-color: #1e1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .review-hero {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .hero-image {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  
+    .specifications ul {
+      padding-left: 20px;
+    }
+  
+    .pros-cons-table {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .pros-cons-table td {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }

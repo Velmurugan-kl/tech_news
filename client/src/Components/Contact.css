@@ -1,0 +1,68 @@
+.contact-form {
+    border: 1px solid #111;
+    padding: 20px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    position: relative;
+  }
+  
+  .contact-form input {
+    display: block;
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  #message {
+    height: 100px;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .name,
+  .email {
+    width: 48%;
+  }
+  @media (max-width: 500px) {
+    .form-row {
+      display: block;
+    }
+    .name,
+    .email {
+      width: 100%;
+    }
+  }
+  
+  .send {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .send button {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .send button:hover {
+    background-color: #111;
+  }
+  
+  .send svg {
+    margin-right: 8px;
+  }
