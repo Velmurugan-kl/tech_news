@@ -1,68 +1,50 @@
+/* Contact.css */
+.contact-container {
+  max-width: 100%; /* Ensure it uses full width available */
+  margin: 0;
+}
+
 .contact-form {
-    border: 1px solid #111;
-    padding: 20px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 1;
-    position: relative;
-  }
-  
-  .contact-form input {
-    display: block;
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  #message {
-    height: 100px;
-  }
-  
+  border: 1px solid #111;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  position: relative;
+  box-sizing: border-box; /* Include padding and border in width */
+  width: 100%; /* Ensure it takes full width of its container */
+  max-width: 500px; /* Constrain width as needed */
+}
+
+.contact-header {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.contact-form input {
+  display: block;
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column; /* Stack name and email vertically */
+  width: 100%;
+}
+
+.name,
+.email {
+  width: 100%;
+}
+
+@media (max-width: 500px) {
   .form-row {
-    display: flex;
-    justify-content: space-between;
+    display: block;
   }
-  
-  .name,
-  .email {
-    width: 48%;
-  }
-  @media (max-width: 500px) {
-    .form-row {
-      display: block;
-    }
-    .name,
-    .email {
-      width: 100%;
-    }
-  }
-  
-  .send {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .send button {
-    display: flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .send button:hover {
-    background-color: #111;
-  }
-  
-  .send svg {
-    margin-right: 8px;
-  }
+}

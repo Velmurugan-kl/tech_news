@@ -1,0 +1,27 @@
+.custom-arrow {
+  width: 30px;
+  height: 30px;
+  background-color: #252525;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+.custom-arrow:hover {
+  transform: scale(1.2);
+  background-color: #1e0808;
+}
+
+.custom-arrow-next {
+  right: -10px;
+}
+
+.custom-arrow-prev {
+  left: -10px;
+}

@@ -1,17 +1,14 @@
-// CardSlider.js
 import React from "react";
-import Slider from "react-slick"; // Assuming you are using react-slick
-import "./HeadlineCard.css"; // Import CSS for the card slider styles
+import Slider from "react-slick";
+import "./HeadlineCard.css";
 
 const CardSlider = ({ slidesData, handleCardClick }) => {
   const settings = {
     dots: false,
-    arrows:false,
+    arrows: false,
     infinite: true,
     speed: 500,
-    // fade:true,
-    centerMode:true,
-    // focusOnSelect:true,
+    centerMode: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -19,7 +16,7 @@ const CardSlider = ({ slidesData, handleCardClick }) => {
   };
 
   const openLink = (url) => {
-    window.open(url,"_blank");
+    window.open(url, "_blank");
   };
 
   return (
@@ -27,23 +24,22 @@ const CardSlider = ({ slidesData, handleCardClick }) => {
       {slidesData.map((slide) => (
         <div
           key={slide.id}
-          className="card-container"
+          className="headline-card-container"
           onClick={() => openLink(slide.page)}
         >
-          <div className="card-img">
+          <div className="headline-card-img">
             <img src={slide.img} alt="Article" />
           </div>
-          <div className="card-content">
-            <h3 className="card-title">{slide.title}</h3>
-            <p className="card-description">{slide.description}</p>
-            <div className="card-meta">
+          <div className="headline-card-content">
+            <h3 className="headline-card-title">{slide.title}</h3>
+            <p className="headline-card-description">{slide.description}</p>
+            <div className="headline-card-meta">
               <span>{slide.author}</span> | <span>{slide.date}</span>
             </div>
           </div>
         </div>
       ))}
     </Slider>
-    
   );
 };
 
