@@ -9,7 +9,7 @@
   cursor: pointer;
   transition: transform 0.3s ease;
   position: absolute;
-  top: 50%;
+  top: 49%;
   z-index: 1;
 }
 
@@ -19,9 +19,9 @@
 }
 
 .custom-arrow-next {
-  right: -10px;
+  right: -30px;
 }
 
 .custom-arrow-prev {
-  left: -10px;
+  left: -25px;
 }

@@ -6,8 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Cards.css"; 
 import { NextArrow, PrevArrow } from "./Arrow";
 
-const Cards = ({ NewsData, handleCardClick }) => {
+const Cards = ({ NewsData, handleCardClick, maxCards = 6 }) => { 
   const navigate = useNavigate();
+
+
+  const limitedNewsData = NewsData.slice(0, maxCards);
 
   const cardSliderSettings = {
     dots: true,
@@ -15,7 +18,7 @@ const Cards = ({ NewsData, handleCardClick }) => {
     arrows: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     autoplay: false,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -24,14 +27,14 @@ const Cards = ({ NewsData, handleCardClick }) => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
         },
       },
       {
@@ -45,12 +48,12 @@ const Cards = ({ NewsData, handleCardClick }) => {
   };
 
   const handleMoreClick = () => {
-    navigate("/all-cards", { state: { cards: NewsData } }); // Navigate to the new page with data
+    navigate("/all-cards", { state: { cards: NewsData } }); // Navigate to the new page with full data
   };
 
   return (
     <Slider {...cardSliderSettings} className="cards-container">
-      {NewsData.map((card) => (
+      {limitedNewsData.map((card) => (
         <div key={card.id} className="cards-slider-card-wrapper">
           <div className="news-card" onClick={() => handleCardClick(card.id)}>
             {card.image && <img src={card.image} alt={card.title} className="news-card-image" />}

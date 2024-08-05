@@ -1,22 +1,33 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import "./AllRev.css";
+import "./AllNews.css";
 import SearchBar from "./SearchBar";
 import News from "./News";
 import { fetchGadgetDataById, fetchReviewData } from "../Api/ApiLoad";
+import Article from "./Article";
 
-const AllCardsPage = () => {
+const AllNewsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [newsData, setNewsData] = useState(null);
   const newsContentRef = useRef(null);
 
+  // Shuffle function
+  const shuffleArray = (array) => {
+    let shuffledArray = array.slice(); // Create a copy of the array
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements
+    }
+    return shuffledArray;
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
         const RevApiData = await fetchReviewData();
-        setCards(RevApiData); // Set the fetched data to the cards state
+        const shuffledCards = shuffleArray(RevApiData); // Shuffle the data
+        setCards(shuffledCards); // Set the shuffled data to the cards state
       } catch (error) {
         console.error("Error fetching review data:", error);
       }
@@ -57,26 +68,26 @@ const AllCardsPage = () => {
   }, [selectedCard]);
 
   return (
-    <div className="all-cards-page">
+    <div className="allnews-all-cards-page">
       <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
-      <h1>All Reviews</h1>
-      <div className="cards-grid">
+      <h1>All News</h1>
+      <div className="allnews-cards-grid">
         {filteredCards.map((card) => (
           <div
             key={card.id}
-            className={`card ${selectedCard === card.id ? 'selected-card' : ''}`}
+            className={`allnews-card ${selectedCard === card.id ? 'selected-card' : ''}`}
             onClick={() => handleCardClick(card.id)}
           >
-            {card.image && <img src={card.image} alt={card.title} className="card-image" />}
-            <div className="card-content">
-              <h2 className="card-title">{card.title}</h2>
-              <p className="card-description">{card.heroDescription}</p>
+            {card.image && <img src={card.image} alt={card.title} className="allnews-card-image" />}
+            <div className="allnews-card-content">
+              <h2 className="allnews-card-title">{card.title}</h2>
+              <p className="allnews-card-description">{card.heroDescription}</p>
             </div>
           </div>
         ))}
         {selectedCard && newsData && (
-          <div className="news-component-container" ref={newsContentRef}>
-            <News newsData={newsData} />
+          <div className="allnews-news-component-container" ref={newsContentRef}>
+            <Article/>
           </div>
         )}
       </div>
@@ -84,4 +95,4 @@ const AllCardsPage = () => {
   );
 };
 
-export default AllCardsPage;
+export default AllNewsPage;

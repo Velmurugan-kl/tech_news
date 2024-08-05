@@ -15,9 +15,9 @@ const Footer = () => {
           <div className="footer-section">
             <h2 className="footer-title">Quick Links</h2>
             <ul className="footer-links">
-              <li><a href="/edit" className="footer-link">Submit Article</a></li>
-              <li>{(JSON.parse(localStorage.getItem('loged'))) && <a href="/update-review" className="footer-link">Update Review</a>}
-              {!(JSON.parse(localStorage.getItem('loged'))) && <a href="" className="footer-link">Update Review</a>}</li>
+              <li><a href="/review-edit" className="footer-link">Update Review</a></li>
+              <li>{(JSON.parse(localStorage.getItem('loged'))) && <a href="/edit" className="footer-link">Submit Article</a>}
+              {!(JSON.parse(localStorage.getItem('loged'))) && <a href="" className="footer-link">Submit Article</a>}</li>
               <li>{!(JSON.parse(localStorage.getItem('loged'))) &&<a href="/login" className="footer-link">Login</a>}
               {(JSON.parse(localStorage.getItem('loged'))) &&<a href="" className="footer-link" onClick={()=>{
                 localStorage.setItem('loged',false)
