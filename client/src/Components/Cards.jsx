@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,10 +7,12 @@ import "./Cards.css";
 import { NextArrow, PrevArrow } from "./Arrow";
 
 const Cards = ({ NewsData, handleCardClick }) => {
+  const navigate = useNavigate();
+
   const cardSliderSettings = {
     dots: true,
-    infinite: true,
-    arrows: true, 
+    infinite: false,
+    arrows: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -41,6 +44,10 @@ const Cards = ({ NewsData, handleCardClick }) => {
     ],
   };
 
+  const handleMoreClick = () => {
+    navigate("/all-cards", { state: { cards: NewsData } }); // Navigate to the new page with data
+  };
+
   return (
     <Slider {...cardSliderSettings} className="cards-container">
       {NewsData.map((card) => (
@@ -55,7 +62,7 @@ const Cards = ({ NewsData, handleCardClick }) => {
         </div>
       ))}
       <div className="cards-slider-card-wrapper">
-        <div className="more-button-wrapper">
+        <div className="more-button-wrapper" onClick={handleMoreClick}>
           <div className="more-button">
             More
           </div>

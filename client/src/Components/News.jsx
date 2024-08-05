@@ -1,5 +1,6 @@
 import React from 'react';
 import './News.css';
+import ReviewBox from './ReviewBox';
 
 function News({ newsData }) {
   const {
@@ -79,7 +80,7 @@ function News({ newsData }) {
           <p>{conclusion}</p>
         </div>
         <div>
-          {/* <ReviewBox /> */}
+          <ReviewBox />
         </div>
       </div>
       <div className="footer">

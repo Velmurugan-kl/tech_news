@@ -1,4 +1,3 @@
-// src/components/HomeContent.js
 import React, { useState, useRef, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,6 +12,7 @@ import {
 } from "../Api/ApiLoad";
 import { transformNewsData } from "../Api/ApiLoad";
 import Footer from "./Footer";
+import SearchBar from "./SearchBar";
 
 const HomeContent = () => {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -20,6 +20,7 @@ const HomeContent = () => {
   const newContentRef = useRef(null);
   const [slidesData, setSlidesData] = useState([]);
   const [headLineData, setHeadLineData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -27,28 +28,11 @@ const HomeContent = () => {
       const RevApiData = await fetchReviewData();
       const transformedData = transformNewsData(apiData);
       setHeadLineData(transformedData);
-      // console.log(transformNewsData);
       setSlidesData(RevApiData);
     };
 
     getData();
   }, []);
-
-  // const cardsData = [
-  //   {
-  //     id: 1,
-  //     title: "Card 1",
-  //     content: "This is card 1.",
-  //     image: "https://via.placeholder.com/300",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Card 2",
-  //     content: "This is card 2.",
-  //     image: "https://via.placeholder.com/300",
-  //   },
-  //   // Add more cards as needed...
-  // ];
 
   const handleCardClick = async (cardId) => {
     console.log(cardId);
@@ -65,11 +49,22 @@ const HomeContent = () => {
     }
   }, [selectedCard]);
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log("Searching for:", searchTerm);
+  };
+
   return (
     <div>
-      <div className="main-body">
-        <div className="headline" id="home">
-          <h1>Byte-Sized News</h1>
+      <div className="main-body" id="home">
+        <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
+        
+        <div className="headline">
+          <h1>Tech Bits</h1>
           <CardSlider
             slidesData={headLineData}
             handleCardClick={handleCardClick}
@@ -77,7 +72,7 @@ const HomeContent = () => {
         </div>
         <div className="sub-cont" id="reviews">
           <div className="sub-cont-head">
-            <h1>BYTES</h1>
+            <h1>Tech Review</h1>
           </div>
           <Cards NewsData={slidesData} handleCardClick={handleCardClick} />
         </div>
@@ -89,8 +84,7 @@ const HomeContent = () => {
         )}
       </div>
       <div id="about">
-
-      <Footer/>
+        <Footer />
       </div>
     </div>
   );

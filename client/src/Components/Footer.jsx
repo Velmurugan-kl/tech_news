@@ -16,8 +16,12 @@ const Footer = () => {
             <h2 className="footer-title">Quick Links</h2>
             <ul className="footer-links">
               <li><a href="/edit" className="footer-link">Submit Article</a></li>
-              <li><a href="/update-review" className="footer-link">Update Review</a></li>
-              <li><a href="/login" className="footer-link">Login</a></li>
+              <li>{(JSON.parse(localStorage.getItem('loged'))) && <a href="/update-review" className="footer-link">Update Review</a>}
+              {!(JSON.parse(localStorage.getItem('loged'))) && <a href="" className="footer-link">Update Review</a>}</li>
+              <li>{!(JSON.parse(localStorage.getItem('loged'))) &&<a href="/login" className="footer-link">Login</a>}
+              {(JSON.parse(localStorage.getItem('loged'))) &&<a href="" className="footer-link" onClick={()=>{
+                localStorage.setItem('loged',false)
+              }}>Logout</a>}</li>
               <li><a href="/signup" className="footer-link">Sign Up</a></li>
               <li><a href="/privacy-policy" className="footer-link">Privacy Policy</a></li>
               <li><a href="/terms-of-service" className="footer-link">Terms of Service</a></li>

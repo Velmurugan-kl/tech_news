@@ -1,0 +1,18 @@
+/* Login.css */
+.container {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://assets.telegraphindia.com/telegraph/2021/Jan/1610316945_shutterstock_260155340.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      background-size: contain;
+    }
+  }
+  
