@@ -1,6 +1,6 @@
-import React from 'react';
-import './Footer.css';
-
+import React from "react";
+import "./Footer.css";
+import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="footer">
@@ -9,43 +9,104 @@ const Footer = () => {
           <div className="footer-section">
             <h2 className="footer-title">About Us</h2>
             <p className="footer-text">
-              We are a tech news and reviews site dedicated to providing you with the latest and most accurate information about technology and gadgets.
+              We are a tech news and reviews site dedicated to providing you
+              with the latest and most accurate information about technology and
+              gadgets.
             </p>
           </div>
           <div className="footer-section">
             <h2 className="footer-title">Quick Links</h2>
             <ul className="footer-links">
-              <li><a href="/review-edit" className="footer-link">Update Review</a></li>
-              <li>{(JSON.parse(localStorage.getItem('loged'))) && <a href="/edit" className="footer-link">Submit Article</a>}
-              {!(JSON.parse(localStorage.getItem('loged'))) && <a href="" className="footer-link">Submit Article</a>}</li>
-              <li>{!(JSON.parse(localStorage.getItem('loged'))) &&<a href="/login" className="footer-link">Login</a>}
-              {(JSON.parse(localStorage.getItem('loged'))) &&<a href="" className="footer-link" onClick={()=>{
-                localStorage.setItem('loged',false)
-              }}>Logout</a>}</li>
-              <li><a href="/signup" className="footer-link">Sign Up</a></li>
-              <li><a href="/privacy-policy" className="footer-link">Privacy Policy</a></li>
-              <li><a href="/terms-of-service" className="footer-link">Terms of Service</a></li>
+              <li>
+                <NavLink to="/review-edit" className="footer-link">
+                  Update Review
+                </NavLink>
+              </li>
+              <li>
+                {JSON.parse(localStorage.getItem("loged")) ? (
+                  <NavLink to="/edit" className="footer-link">
+                    Submit Article
+                  </NavLink>
+                ) : (
+                  <NavLink to=" " className="footer-link">
+                    Submit Article
+                  </NavLink>
+                )}
+              </li>
+              <li>
+                {!JSON.parse(localStorage.getItem("loged")) ? (
+                  <NavLink to="/login" className="footer-link">
+                    Login
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    to="#"
+                    className="footer-link"
+                    onClick={() => {
+                      localStorage.setItem("loged", false);
+                    }}
+                  >
+                    Logout
+                  </NavLink>
+                )}
+              </li>
+              <li>
+                <NavLink to="/signup" className="footer-link">
+                  Sign Up
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/privacy-policy" className="footer-link">
+                  Privacy Policy
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/terms-of-service" className="footer-link">
+                  Terms of Service
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
         <div className="footer-right">
           <div className="footer-social">
-            <a href="https://facebook.com" className="footer-social-link" aria-label="Facebook">
+            <a
+              href="https://facebook.com"
+              className="footer-social-link"
+              aria-label="Facebook"
+            >
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="https://twitter.com" className="footer-social-link" aria-label="Twitter">
+            <a
+              href="https://twitter.com"
+              className="footer-social-link"
+              aria-label="Twitter"
+            >
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="https://instagram.com" className="footer-social-link" aria-label="Instagram">
+            <a
+              href="https://instagram.com"
+              className="footer-social-link"
+              aria-label="Instagram"
+            >
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="https://linkedin.com" className="footer-social-link" aria-label="LinkedIn">
+            <a
+              href="https://linkedin.com"
+              className="footer-social-link"
+              aria-label="LinkedIn"
+            >
               <i className="fab fa-linkedin-in"></i>
             </a>
           </div>
           <div className="footer-contact">
             <h2 className="footer-title">Contact Us</h2>
-            <p className="footer-text">For inquiries, please email us at <a href="mailto:info@techsite.com" className="footer-link">info@techsite.com</a></p>
+            <p className="footer-text">
+              For inquiries, please email us at{" "}
+              <a href="mailto:info@techsite.com" className="footer-link">
+                info@techsite.com
+              </a>
+            </p>
           </div>
         </div>
       </div>
