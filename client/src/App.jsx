@@ -14,27 +14,32 @@ import HomeContent from './Components/HomeContent';
 import AboutUs from './Components/AboutUs';
 import AllNewsPage from './Components/AllNews';
 import ContactUs from './Components/ContactUs';
+import ScrollToTop from './Components/ScrollUp';
+
 
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [next, setNext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn,setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('loged')));
 
   return (
-    <Mycontext.Provider value={{ email, setEmail, password, setPassword, next, setNext, isLoading, setIsLoading }}>
+    <Mycontext.Provider value={{ email, setEmail, password, setPassword, next, setNext, isLoading, setIsLoading, isLoggedIn,setIsLoggedIn }}>
       <BrowserRouter>
-        <Navigation />
+      <ScrollToTop/>
         <Routes>
-          <Route path="/" element={<HomeContent />} />
+          <Route path="/" element={<Navigation/>}>
+          <Route index element={<HomeContent />} />
           <Route path="/edit" element={<NewsForm />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route path="/all-cards" element={<AllCardsPage />} />
           <Route path="/news" element={<AllNewsPage />} />
           <Route path="/review-edit" element={<DeviceForm />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
+          </Route>
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
         
         </Routes>
         <Footer/>
@@ -42,5 +47,6 @@ function App() {
     </Mycontext.Provider>
   );
 }
+
 
 export default App;

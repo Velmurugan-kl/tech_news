@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import Mycontext from './Mycontext.jsx';
+import Mycontext from './Mycontext';
 import axios from 'axios';
 import './Login.css';
 
@@ -168,10 +168,6 @@ export default function SignUp() {
               marginTop: 8,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} src='./Images/skct_logo1_pn.png' />
-            <Typography component="h1" variant="h5">
-              {next ? 'Sign Up' : 'Personal Details'}
-            </Typography>
             <Box
               component="form"
               onSubmit={handleSubmit}
@@ -179,11 +175,15 @@ export default function SignUp() {
               sx={{
                 mt: 3,
                 backdropFilter: 'blur(8px) saturate(120%)',
-                borderRadius: 10,
+                borderRadius: 8,
                 padding: 3,
                 bgcolor: 'rgba(0, 0, 0, 0.7)',
               }}
             >
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main', margin:'auto', }} src='./Images/skct_logo1_pn.png' />
+              <Typography component="h1" variant="h5" sx={{padding:2,}}>
+                {next ? 'Sign Up' : 'Personal Details'}
+              </Typography>
               {!next ? (
                 <Grid container spacing={2}>
                   <Grid item xs={6}>

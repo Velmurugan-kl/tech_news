@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'; // Import axios
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -55,7 +56,7 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const nav = (path) => window.location.href = path; // Replace with your navigation function
+  const nav = useNavigate(); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,12 +95,6 @@ export default function SignIn() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
             <Box
               component="form"
               onSubmit={handleSubmit}
@@ -107,11 +102,17 @@ export default function SignIn() {
               sx={{
                 mt: 1,
                 backdropFilter: 'blur(8px) saturate(120%)',
-                borderRadius: 10,
+                borderRadius: 8,
                 padding: 3,
                 bgcolor: 'rgba(0, 0, 0, 0.7)',
               }}
             >
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main', margin:'auto' }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
               <TextField
                 margin="normal"
                 required
@@ -174,7 +175,7 @@ export default function SignIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" sx={{ color: '#e4e4e4' }}>
+                  <Link href="/signup" variant="body2" sx={{ color: '#e4e4e4' }}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
