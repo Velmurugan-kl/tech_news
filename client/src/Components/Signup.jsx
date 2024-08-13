@@ -77,7 +77,7 @@ export default function SignUp() {
       password: password,
       firstname: fname
     };
-    await axios.post('https://retoolapi.dev/5M2qFh/data', pdata);
+    await axios.post('http://localhost:3001/user', pdata);
   };
   
   const handleCheck = async () => {

@@ -43,7 +43,7 @@
 }
 
 .news-card-heading {
-  height: 10vh;
+  height: 11vh;
   margin: 10px;
   overflow-y: scroll;
   font-size: 1.5rem;
@@ -97,4 +97,22 @@
   background-color: #131212; 
   color: #fff;
   transform: scale(1.02);
+}
+
+.news-tag {
+  display: inline-block;
+  background: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.news-article-tags {
+  margin: 20px 0;
+}
+
+.news-article-tags h4 {
+  margin-bottom: 10px;
 }

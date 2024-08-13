@@ -110,3 +110,26 @@
     height: 30px;
   }
 }
+
+/* Navigation.css */
+.profile-card-container {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 250px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 50;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* Prevent interaction when not visible */
+}
+
+.profile-card-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Enable interaction when visible */
+}

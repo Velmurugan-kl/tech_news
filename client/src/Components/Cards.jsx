@@ -59,7 +59,18 @@ const Cards = ({ NewsData, handleCardClick, maxCards = 6 }) => {
             {card.image && <img src={card.image} alt={card.title} className="news-card-image" />}
             <div className="news-card-content">
               <h2 className="news-card-heading">{card.title}</h2>
-              <p className="news-card-subheading">{card.heroDescription}</p>
+              {card.heroDescription && <p className="news-card-subheading">{card.heroDescription}</p>}
+              
+              {card.tags && (<div className="news-article-tags">
+          <h4>Tags:</h4>
+          <ul>
+            {card.tags.map((tag, index) => (
+              <li key={index} className="news-tag">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </div>)}
             </div>
           </div>
         </div>

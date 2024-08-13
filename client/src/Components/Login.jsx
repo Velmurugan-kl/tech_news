@@ -62,7 +62,7 @@ export default function SignIn() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.get('https://retoolapi.dev/5M2qFh/data');
+      const response = await axios.get('http://localhost:3001/user');
       const fetchedData = response.data; 
       const matchingUser = fetchedData.find(user => user.mail === email && user.password === password );
       if (matchingUser) {

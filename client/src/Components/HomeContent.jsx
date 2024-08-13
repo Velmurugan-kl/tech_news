@@ -3,15 +3,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./HomeContent.css";
 import CardSlider from "./HeadlineCard";
-import News from "./News";
+import Review from "./ReviewContent";
 import Cards from "./Cards";
-import {
-  fetchNewsData,
-  fetchReviewData,
-  fetchGadgetDataById,
-} from "../Api/ApiLoad";
+import { fetchNewsData, fetchReviewData, fetchGadgetDataById, fetchArticleDataById, fetchArticleData } from "../Api/ApiLoad";
 import { transformNewsData } from "../Api/ApiLoad";
-import Footer from "./Footer";
 import SearchBar from "./SearchBar";
 import Article from "./Article";
 
@@ -19,6 +14,7 @@ const HomeContent = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [selectednewsCard, setSelectednewsCard] = useState(null);
   const [newsData, setNewsData] = useState(null);
+  const [articleData, setArticleData] = useState(null); // Added for article data
   const newContentRef = useRef(null);
   const [slidesData, setSlidesData] = useState([]);
   const [headLineData, setHeadLineData] = useState([]);
@@ -27,44 +23,37 @@ const HomeContent = () => {
   const cardsRef = useRef(null);
   const [sliderVisible, setSliderVisible] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
-
   const [shuffledSlidesData, setShuffledSlidesData] = useState([]);
 
-useEffect(() => {
-  const getData = async () => {
-    const apiData = await fetchNewsData();
-    const RevApiData = await fetchReviewData();
-    const transformedData = transformNewsData(apiData);
-    setHeadLineData(transformedData);
-    setSlidesData(RevApiData);
-    setShuffledSlidesData(shuffleArray(RevApiData)); // Shuffle the data and set it to a new state
-  };
+  useEffect(() => {
+    const getData = async () => {
+      const apiData = await fetchNewsData();
+      const RevApiData = await fetchReviewData();
+      const newsApiData = await fetchArticleData();
+      const transformedData = transformNewsData(apiData);
+      setHeadLineData(transformedData);
+      setSlidesData(RevApiData);
+      setShuffledSlidesData(newsApiData); 
+      console.log(shuffledSlidesData,"--------rev");
+    };
 
-  getData();
-}, []);
+    getData();
+  }, []);
 
-
-  const shuffleArray = (array) => {
-    let shuffledArray = array.slice(); // Create a copy of the array
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements
-    }
-    return shuffledArray;
-  };
-  
 
   const handleCardClick = async (cardId) => {
-    console.log(cardId);
     setSelectedCard(cardId);
+    setSelectednewsCard(null); // Close the Article component
     const fetchedData = await fetchGadgetDataById(cardId);
     setNewsData(fetchedData);
   };
+
   const handlenewsCardClick = async (cardId) => {
-    console.log(cardId);
     setSelectednewsCard(cardId);
-    // const fetchedData = await fetchGadgetDataById(cardId);
-    // setNewsData(fetchedData);
+    setSelectedCard(null); // Close the Review component
+    const fetchedData = await fetchArticleDataById(cardId); 
+    setArticleData(fetchedData); // Set article data
+    console.log(articleData,"---------news");
   };
 
   useEffect(() => {
@@ -74,6 +63,14 @@ useEffect(() => {
       });
     }
   }, [selectedCard]);
+
+  useEffect(() => {
+    if (selectednewsCard && newContentRef.current) {
+      newContentRef.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [selectednewsCard]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -125,25 +122,24 @@ useEffect(() => {
         </div>
         {selectedCard && newsData && (
           <div className="new-component-container" ref={newContentRef}>
-            <News newsData={newsData} /> 
+            <Review newsData={newsData} /> 
           </div>
         )}
-        <div className={`sub-cont ${cardsVisible ? "fade-in" : ""}`} id="reviews" ref={cardsRef}>
+        <div className={`sub-cont ${cardsVisible ? "fade-in" : ""}`} id="news" ref={cardsRef}>
           <div className="sub-cont-head">
-            <h1>Tech NEWS</h1>
+            <h1>Tech News</h1>
           </div>
           <Cards NewsData={shuffledSlidesData} handleCardClick={handlenewsCardClick} />
         </div>
-        {selectednewsCard && (
+        {selectednewsCard && articleData && (
           <div className="new-component-container" ref={newContentRef}>
-            <Article /> 
+            <Article articleData={articleData} /> 
           </div>
         )}
       </div>
-      
+
     </div>
   );
-  
 };
 
 export default HomeContent;

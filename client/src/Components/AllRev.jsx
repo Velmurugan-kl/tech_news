@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./AllRev.css";
 import SearchBar from "./SearchBar";
-import News from "./News";
+import Review from "./ReviewContent.jsx";
 import { fetchGadgetDataById, fetchReviewData } from "../Api/ApiLoad";
 
 const AllCardsPage = () => {
@@ -76,7 +76,7 @@ const AllCardsPage = () => {
         ))}
         {selectedCard && newsData && (
           <div className="news-component-container" ref={newsContentRef}>
-            <News newsData={newsData} />
+            <Review newsData={newsData} />
           </div>
         )}
       </div>

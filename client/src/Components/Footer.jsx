@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import { NavLink } from "react-router-dom";
+import { Alert } from "@mui/material";
 const Footer = () => {
   return (
     <footer className="footer">
@@ -18,9 +19,21 @@ const Footer = () => {
             <h2 className="footer-title">Quick Links</h2>
             <ul className="footer-links">
               <li>
-                <NavLink to="/review-edit" className="footer-link">
-                  Update Review
-                </NavLink>
+                {JSON.parse(localStorage.getItem("loged")) ? (
+                  <NavLink to="/review-edit" className="footer-link">
+                    Update Review
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    to=""
+                    className="footer-link"
+                    onClick={() => {
+                      window.alert("You should sign-in to submit a review");
+                    }}
+                  >
+                    Update Review
+                  </NavLink>
+                )}
               </li>
               <li>
                 {JSON.parse(localStorage.getItem("loged")) ? (
@@ -28,7 +41,13 @@ const Footer = () => {
                     Submit Article
                   </NavLink>
                 ) : (
-                  <NavLink to=" " className="footer-link">
+                  <NavLink
+                    to=" "
+                    className="footer-link"
+                    onClick={() => {
+                      window.alert("You should sign-in to submit a NEWS");
+                    }}
+                  >
                     Submit Article
                   </NavLink>
                 )}

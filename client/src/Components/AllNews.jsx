@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./AllNews.css";
 import SearchBar from "./SearchBar";
-import News from "./News";
-import { fetchGadgetDataById, fetchReviewData } from "../Api/ApiLoad";
+import { fetchArticleData, fetchArticleDataById, fetchGadgetDataById, fetchReviewData } from "../Api/ApiLoad";
 import Article from "./Article";
 
 const AllNewsPage = () => {
@@ -12,22 +11,11 @@ const AllNewsPage = () => {
   const [newsData, setNewsData] = useState(null);
   const newsContentRef = useRef(null);
 
-  // Shuffle function
-  const shuffleArray = (array) => {
-    let shuffledArray = array.slice(); // Create a copy of the array
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements
-    }
-    return shuffledArray;
-  };
-
   useEffect(() => {
     const getData = async () => {
       try {
-        const RevApiData = await fetchReviewData();
-        const shuffledCards = shuffleArray(RevApiData); // Shuffle the data
-        setCards(shuffledCards); // Set the shuffled data to the cards state
+        const RevApiData = await fetchArticleData();
+        setCards(RevApiData); // Set the shuffled data to the cards state
       } catch (error) {
         console.error("Error fetching review data:", error);
       }
@@ -52,7 +40,7 @@ const AllNewsPage = () => {
   const handleCardClick = async (cardId) => {
     setSelectedCard(cardId);
     try {
-      const fetchedData = await fetchGadgetDataById(cardId);
+      const fetchedData = await fetchArticleDataById(cardId);
       setNewsData(fetchedData);
     } catch (error) {
       console.error("Error fetching gadget data:", error);
@@ -66,6 +54,9 @@ const AllNewsPage = () => {
       });
     }
   }, [selectedCard]);
+
+  // Find the selected card data from the cards array
+  const selectedArticleData = cards.find(card => card.id === selectedCard);
 
   return (
     <div className="allnews-all-cards-page">
@@ -85,9 +76,9 @@ const AllNewsPage = () => {
             </div>
           </div>
         ))}
-        {selectedCard && newsData && (
+        {selectedCard && selectedArticleData && (
           <div className="allnews-news-component-container" ref={newsContentRef}>
-            <Article/>
+            <Article articleData={selectedArticleData} />
           </div>
         )}
       </div>

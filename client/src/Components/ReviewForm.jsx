@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './NewsForm.css'; // Reuse the same CSS file
 
-const DeviceForm = () => {
+const ReviewForm = () => {
   const [title, setTitle] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(''); // Updated to handle image links
   const [heroText, setHeroText] = useState('');
   const [heroDescription, setHeroDescription] = useState('');
   const [specifications, setSpecifications] = useState([{ category: '', detail: '' }]);
@@ -13,10 +13,6 @@ const DeviceForm = () => {
   const [performanceReview, setPerformanceReview] = useState('');
   const [designReview, setDesignReview] = useState('');
   const [conclusion, setConclusion] = useState('');
-
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-  };
 
   const handleSpecificationChange = (index, event) => {
     const updatedSpecifications = [...specifications];
@@ -51,22 +47,23 @@ const DeviceForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('image', image);
-    formData.append('heroText', heroText);
-    formData.append('heroDescription', heroDescription);
-    formData.append('specifications', JSON.stringify(specifications));
-    formData.append('pros', JSON.stringify(pros));
-    formData.append('cons', JSON.stringify(cons));
-    formData.append('performanceReview', performanceReview);
-    formData.append('designReview', designReview);
-    formData.append('conclusion', conclusion);
+    const formData = {
+      title,
+      image,
+      heroText,
+      heroDescription,
+      specifications,
+      pros,
+      cons,
+      performanceReview,
+      designReview,
+      conclusion,
+    };
 
     try {
-      await axios.post('https://your-api-endpoint.com/upload', formData, {
+      await axios.post('http://localhost:3001/reviews', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       alert('Device submitted successfully!');
@@ -91,12 +88,13 @@ const DeviceForm = () => {
           />
         </div>
         <div className="news-form-group">
-          <label htmlFor="image">Image Upload:</label>
+          <label htmlFor="image">Image URL:</label> {/* Updated to handle image links */}
           <input
-            type="file"
+            type="text"
             id="image"
-            accept="image/*"
-            onChange={handleImageChange}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            required
           />
         </div>
         <div className="news-form-group">
@@ -211,4 +209,4 @@ const DeviceForm = () => {
   );
 };
 
-export default DeviceForm;
+export default ReviewForm;
