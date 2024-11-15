@@ -7,18 +7,20 @@ import News from './News'
 import ReviewBox from './ReviewBox'
 import ReviewedContentCard from './ReviewedContentCard'
 import NewsForm from './NewsForm'
+import AllNewsPage from './AllNews'
 
 const Home = () => {
   return (
     <div>
         
         {/* <News/> */}
-        <HomeContent/>
+        {/* <HomeContent/> */}
         {/* <Footer/> */}
         {/* <News/>
         <ReviewBox/> */}
         {/* <ReviewedContentCard/> */}
         {/* <NewsForm/> */}
+        <AllNewsPage/>
     </div>
   )
 }

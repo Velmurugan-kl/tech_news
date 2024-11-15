@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./AllNews.css";
 import SearchBar from "./SearchBar";
-import { fetchArticleData, fetchArticleDataById, fetchGadgetDataById, fetchReviewData } from "../Api/ApiLoad";
+import {
+  fetchArticleData,
+  fetchArticleDataById,
+  fetchGadgetDataById,
+  fetchReviewData,
+} from "../Api/ApiLoad";
 import Article from "./Article";
 
 const AllNewsPage = () => {
@@ -34,7 +39,7 @@ const AllNewsPage = () => {
   };
 
   const filteredCards = cards.filter((card) =>
-    card.title.toLowerCase().includes(searchTerm.toLowerCase())
+    card?.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleCardClick = async (cardId) => {
@@ -56,20 +61,32 @@ const AllNewsPage = () => {
   }, [selectedCard]);
 
   // Find the selected card data from the cards array
-  const selectedArticleData = cards.find(card => card.id === selectedCard);
+  const selectedArticleData = cards.find((card) => card.id === selectedCard);
 
   return (
     <div className="allnews-all-cards-page">
-      <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
+      <SearchBar
+        value={searchTerm}
+        onChange={handleSearchChange}
+        onSubmit={handleSearchSubmit}
+      />
       <h1>All News</h1>
       <div className="allnews-cards-grid">
         {filteredCards.map((card) => (
           <div
             key={card.id}
-            className={`allnews-card ${selectedCard === card.id ? 'selected-card' : ''}`}
+            className={`allnews-card ${
+              selectedCard === card.id ? "selected-card" : ""
+            }`}
             onClick={() => handleCardClick(card.id)}
           >
-            {card.image && <img src={card.image} alt={card.title} className="allnews-card-image" />}
+            {card.image && (
+              <img
+                src={card.image}
+                alt={card.title}
+                className="allnews-card-image"
+              />
+            )}
             <div className="allnews-card-content">
               <h2 className="allnews-card-title">{card.title}</h2>
               <p className="allnews-card-description">{card.heroDescription}</p>
@@ -77,7 +94,10 @@ const AllNewsPage = () => {
           </div>
         ))}
         {selectedCard && selectedArticleData && (
-          <div className="allnews-news-component-container" ref={newsContentRef}>
+          <div
+            className="allnews-news-component-container"
+            ref={newsContentRef}
+          >
             <Article articleData={selectedArticleData} />
           </div>
         )}

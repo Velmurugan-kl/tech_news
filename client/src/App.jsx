@@ -34,7 +34,7 @@ function App() {
           <Route path="/edit" element={<NewsForm />} />
           <Route path="/all-cards" element={<AllCardsPage />} />
           <Route path="/news" element={<AllNewsPage />} />
-          <Route path="/review-edit" element={<DeviceForm />} />
+          <Route path="/`review-edit`" element={<DeviceForm />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           </Route>

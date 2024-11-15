@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import ProfileCard from './Components/ProfileCard.jsx'
+import Home from './Components/Home.jsx'
+import { Contact } from './Components/Contact.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
+    {/* <Home/> */}
+    {/* <Contact/> */}
     {/* <ProfileCard
   name="John Doe"
   role="Senior Tech Editor"
