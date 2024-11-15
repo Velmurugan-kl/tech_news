@@ -48,4 +48,41 @@ route2.post('/articles', async (req, res) => {
     }
   });
 
+route2.delete('/articles/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id); // Convert the ID to an integer
+
+    // Find and delete the article by ID
+    const deletedArticle = await Article.findOneAndDelete({ id: id });
+
+    if (deletedArticle) {
+      res.status(200).json({ message: 'Article deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Article not found' });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// DELETE route to remove an article by title
+route2.delete('/articles/title/:title', async (req, res) => {
+  try {
+    const title = req.params.title; // Get the title from the request parameters
+
+    // Find and delete the article by title
+    const deletedArticle = await Article.findOneAndDelete({ title: title });
+
+    if (deletedArticle) {
+      res.status(200).json({ message: 'Article deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Article not found' });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+
+
 export default route2;

@@ -1,85 +1,175 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Install axios if not already: npm install axios
-import './NewsForm.css'; // Link to your updated CSS file
+import axios from 'axios'; // Ensure axios is installed: npm install axios
+import './NewsForm.css'; // Your updated CSS file
 
 const NewsForm = () => {
-  const [heading, setHeading] = useState('');
-  const [subheading, setSubheading] = useState('');
-  const [body, setBody] = useState('');
-  const [image, setImage] = useState(null);
+  const [title, setTitle] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [authorBio, setAuthorBio] = useState('');
+  const [authorAvatar, setAuthorAvatar] = useState('');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState('');
+  const [tags, setTags] = useState('');
+  const [relatedArticles, setRelatedArticles] = useState([{ title: '', url: '' }]);
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  const handleRelatedArticleChange = (index, field, value) => {
+    const updatedArticles = [...relatedArticles];
+    updatedArticles[index][field] = value;
+    setRelatedArticles(updatedArticles);
+  };
+
+  const addRelatedArticle = () => {
+    setRelatedArticles([...relatedArticles, { title: '', url: '' }]);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('heading', heading);
-    formData.append('subheading', subheading);
-    formData.append('body', body);
-    if (image) {
-      formData.append('image', image);
-    }
-
+  
     try {
-      await axios.post('https://your-api-endpoint.com/upload', formData, {
+      const response = await axios.get('http://localhost:3001/articles');
+      const articles = response.data;
+      const lastId = articles.length > 0 ? articles.length : 0;
+      const newId = lastId + 1;
+  
+      const postData = {
+        author: {
+          name: authorName,
+          bio: authorBio,
+          avatar: authorAvatar,
+        },
+        id: newId,  // Ensure the new ID is set here
+        title,
+        date: new Date().toLocaleDateString(),
+        image,
+        content,
+        tags: tags.split(',').map((tag) => tag.trim()),
+        relatedArticles: relatedArticles.filter(
+          (article) => article.title && article.url
+        ),
+      };
+  
+      await axios.post('http://localhost:3001/articles', [postData], {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
+  
       alert('News submitted successfully!');
     } catch (error) {
       console.error('Error uploading news:', error);
       alert('Failed to submit news.');
     }
   };
+  
+  
+  
+  
 
   return (
     <div className="news-form-container">
       <h2>Submit News</h2>
       <form onSubmit={handleSubmit}>
         <div className="news-form-group">
-          <label htmlFor="heading">News Heading:</label>
+          <label htmlFor="title">Title:</label>
           <input
             type="text"
-            id="heading"
-            value={heading}
-            onChange={(e) => setHeading(e.target.value)}
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
         <div className="news-form-group">
-          <label htmlFor="subheading">Subheading:</label>
+          <label htmlFor="authorName">Author Name:</label>
           <input
             type="text"
-            id="subheading"
-            value={subheading}
-            onChange={(e) => setSubheading(e.target.value)}
+            id="authorName"
+            value={authorName}
+            onChange={(e) => setAuthorName(e.target.value)}
             required
           />
         </div>
         <div className="news-form-group">
-          <label htmlFor="body">Body:</label>
+          <label htmlFor="authorBio">Author Bio:</label>
           <textarea
-            id="body"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
+            id="authorBio"
+            value={authorBio}
+            onChange={(e) => setAuthorBio(e.target.value)}
+            rows="3"
+            required
+          />
+        </div>
+        <div className="news-form-group">
+          <label htmlFor="authorAvatar">Author Avatar URL:</label>
+          <input
+            type="url"
+            id="authorAvatar"
+            value={authorAvatar}
+            onChange={(e) => setAuthorAvatar(e.target.value)}
+          />
+        </div>
+        <div className="news-form-group">
+          <label htmlFor="content">Content:</label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             rows="5"
             required
           />
         </div>
         <div className="news-form-group">
-          <label htmlFor="image">Image Upload:</label>
+          <label htmlFor="image">Image URL:</label>
           <input
-            type="file"
+            type="url"
             id="image"
-            accept="image/*"
-            onChange={handleImageChange}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            required
           />
         </div>
-        <button type="submit" className="news-form-submit-button">Submit</button>
+        <div className="news-form-group">
+          <label htmlFor="tags">Tags (comma-separated):</label>
+          <input
+            type="text"
+            id="tags"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+          />
+        </div>
+        <div className="news-form-group">
+          <label>Related Articles:</label>
+          {relatedArticles.map((article, index) => (
+            <div key={index} className="related-article">
+              <input
+                type="text"
+                placeholder="Title"
+                value={article.title}
+                onChange={(e) =>
+                  handleRelatedArticleChange(index, 'title', e.target.value)
+                }
+              />
+              <input
+                type="url"
+                placeholder="URL"
+                value={article.url}
+                onChange={(e) =>
+                  handleRelatedArticleChange(index, 'url', e.target.value)
+                }
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addRelatedArticle}
+            className="add-article-button"
+          >
+            Add Related Article
+          </button>
+        </div>
+        <button type="submit" className="news-form-submit-button">
+          Submit
+        </button>
       </form>
     </div>
   );

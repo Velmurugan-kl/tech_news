@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./AllNews.css";
 import SearchBar from "./SearchBar";
-import {
-  fetchArticleData,
-  fetchArticleDataById,
-  fetchGadgetDataById,
-  fetchReviewData,
-} from "../Api/ApiLoad";
+import { fetchArticleData, fetchArticleDataById } from "../Api/ApiLoad";
 import Article from "./Article";
 
 const AllNewsPage = () => {
@@ -48,7 +43,7 @@ const AllNewsPage = () => {
       const fetchedData = await fetchArticleDataById(cardId);
       setNewsData(fetchedData);
     } catch (error) {
-      console.error("Error fetching gadget data:", error);
+      console.error("Error fetching article data:", error);
     }
   };
 
@@ -89,19 +84,31 @@ const AllNewsPage = () => {
             )}
             <div className="allnews-card-content">
               <h2 className="allnews-card-title">{card.title}</h2>
-              <p className="allnews-card-description">{card.heroDescription}</p>
+              <div className="allnews-card-description-container">
+                {card.tags && (
+                  <div className="allnews-tags-wrapper">
+                    <h4 className="allnews-tags-title">Tags:</h4>
+                    <ul className="allnews-tags-list">
+                      {card.tags.map((tag, index) => (
+                        <li key={index} className="allnews-tag-item">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}
-        {selectedCard && selectedArticleData && (
-          <div
-            className="allnews-news-component-container"
-            ref={newsContentRef}
-          >
-            <Article articleData={selectedArticleData} />
-          </div>
-        )}
       </div>
+
+      {/* Display the article in a separate container when a card is selected */}
+      {selectedCard && selectedArticleData && (
+        <div className="allnews-news-component-container" ref={newsContentRef}>
+          <Article articleData={selectedArticleData} />
+        </div>
+      )}
     </div>
   );
 };

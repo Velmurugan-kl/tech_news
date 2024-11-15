@@ -8,13 +8,13 @@ import Mycontext from './Components/Mycontext';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import AllCardsPage from './Components/AllRev';
-import DeviceForm from './Components/ReviewForm';
 import Footer from './Components/Footer';
 import HomeContent from './Components/HomeContent';
 import AboutUs from './Components/AboutUs';
 import AllNewsPage from './Components/AllNews';
 import ContactUs from './Components/ContactUs';
 import ScrollToTop from './Components/ScrollUp';
+import ReviewForm from './Components/ReviewForm';
 
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
           <Route path="/edit" element={<NewsForm />} />
           <Route path="/all-cards" element={<AllCardsPage />} />
           <Route path="/news" element={<AllNewsPage />} />
-          <Route path="/`review-edit`" element={<DeviceForm />} />
+          <Route path="/review-edit" element={<ReviewForm/>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           </Route>
