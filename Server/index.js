@@ -5,7 +5,6 @@ import cors from "cors";
 import route1 from "./Routes/RevRoute.js";
 import route2 from "./Routes/articleRoute.js";
 
-
 const app = express();
 
 app.use(express.json());
@@ -18,7 +17,7 @@ app.listen(3001);
 
 mongoose
   .connect(
-    process.env.mongodb
+    "mongodb+srv://velmuruganabr:81444vel@cluster0.71pvp.mongodb.net/tech_news?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
     console.log("DB connected");

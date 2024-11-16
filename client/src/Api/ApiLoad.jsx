@@ -26,7 +26,7 @@ export const transformNewsData = (apiData) => {
 };
 
 // API for Reviews
-const API_URL1 = 'http://localhost:3001/reviews';
+const API_URL1 = 'https://tech-news-1.onrender.com/reviews';
 
 // Fetch all reviews
 export const fetchReviewData = async () => {
@@ -51,7 +51,7 @@ export const fetchGadgetDataById = async (id) => {
 };
 
 // API for Articles
-const API_URL2 = 'http://localhost:3001/articles'; 
+const API_URL2 = 'https://tech-news-1.onrender.com/articles'; 
 
 export const fetchArticleData = async () => {
   try { 
