@@ -77,12 +77,12 @@ export default function SignUp() {
       password: password,
       firstname: fname
     };
-    await axios.post('http://localhost:3001/user', pdata);
+    await axios.post('https://tech-news-1.onrender.com/user', pdata);
   };
   
   const handleCheck = async () => {
     try {
-      const response = await axios.get('https://retoolapi.dev/5M2qFh/data');
+      const response = await axios.get('https://tech-news-1.onrender.com/user');
       const fetchedData = response.data; 
       const matchingUser = fetchedData.find(user => user.mail === email );
       return !!matchingUser;

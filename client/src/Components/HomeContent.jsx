@@ -105,7 +105,6 @@ const HomeContent = () => {
   return (
     <div>
       <div className="main-body" id="home">
-        <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
         
         <div className={`headline ${sliderVisible ? "fade-in" : ""}`} ref={sliderRef}>
           <h1>Tech Bits</h1>
@@ -114,6 +113,7 @@ const HomeContent = () => {
             handleCardClick={handleCardClick}
           />
         </div>
+        <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
         <div className={`sub-cont ${cardsVisible ? "fade-in" : ""}`} id="reviews" ref={cardsRef}>
           <div className="sub-cont-head">
             <h1>Tech Review</h1>

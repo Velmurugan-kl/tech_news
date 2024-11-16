@@ -62,7 +62,7 @@ export default function SignIn() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/user');
+      const response = await axios.get('https://tech-news-1.onrender.com/user');
       const fetchedData = response.data; 
       const matchingUser = fetchedData.find(user => user.mail === email && user.password === password );
       if (matchingUser) {
