@@ -15,45 +15,64 @@ const HomeContent = () => {
   const [selectednewsCard, setSelectednewsCard] = useState(null);
   const [newsData, setNewsData] = useState(null);
   const [articleData, setArticleData] = useState(null); // Added for article data
+  const [isLoading, setIsLoading] = useState(false); // Loading state
   const newContentRef = useRef(null);
   const [slidesData, setSlidesData] = useState([]);
   const [headLineData, setHeadLineData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const sliderRef = useRef(null);
   const cardsRef = useRef(null);
-  const [sliderVisible, setSliderVisible] = useState(false);
-  const [cardsVisible, setCardsVisible] = useState(false);
   const [shuffledSlidesData, setShuffledSlidesData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const apiData = await fetchNewsData();
-      const RevApiData = await fetchReviewData();
-      const newsApiData = await fetchArticleData();
-      const transformedData = transformNewsData(apiData);
-      setHeadLineData(transformedData);
-      setSlidesData(RevApiData);
-      setShuffledSlidesData(newsApiData); 
-      console.log(shuffledSlidesData,"--------rev");
+      setIsLoading(true);
+      try {
+        const apiData = await fetchNewsData();
+        const RevApiData = await fetchReviewData();
+        const newsApiData = await fetchArticleData();
+        const transformedData = transformNewsData(apiData);
+        setHeadLineData(transformedData);
+        setSlidesData(RevApiData);
+        setShuffledSlidesData(newsApiData); 
+        console.log(shuffledSlidesData, "--------rev");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getData();
   }, []);
 
-
   const handleCardClick = async (cardId) => {
     setSelectedCard(cardId);
     setSelectednewsCard(null); // Close the Article component
-    const fetchedData = await fetchGadgetDataById(cardId);
-    setNewsData(fetchedData);
+    setIsLoading(true); // Show loading overlay
+    try {
+      const fetchedData = await fetchGadgetDataById(cardId);
+      setNewsData(fetchedData);
+    } catch (error) {
+      console.error("Error fetching card data:", error);
+    } finally {
+      setIsLoading(false); // Hide loading overlay
+    }
   };
 
   const handlenewsCardClick = async (cardId) => {
     setSelectednewsCard(cardId);
     setSelectedCard(null); // Close the Review component
-    const fetchedData = await fetchArticleDataById(cardId); 
-    setArticleData(fetchedData); // Set article data
-    console.log(articleData,"---------news");
+    setIsLoading(true); // Show loading overlay
+    try {
+      const fetchedData = await fetchArticleDataById(cardId); 
+      setArticleData(fetchedData); // Set article data
+      console.log(articleData, "---------news");
+    } catch (error) {
+      console.error("Error fetching news card data:", error);
+    } finally {
+      setIsLoading(false); // Hide loading overlay
+    }
   };
 
   useEffect(() => {
@@ -81,32 +100,15 @@ const HomeContent = () => {
     console.log("Searching for:", searchTerm);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sliderTop = sliderRef.current?.getBoundingClientRect().top;
-      const cardsTop = cardsRef.current?.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-
-      if (sliderTop <= windowHeight) {
-        setSliderVisible(true);
-      }
-
-      if (cardsTop <= windowHeight) {
-        setCardsVisible(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <div>
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="main-body" id="home">
-        
-        <div className={`headline ${sliderVisible ? "fade-in" : ""}`} ref={sliderRef}>
+        <div className="headline" ref={sliderRef}>
           <h1>Tech Bits</h1>
           <CardSlider
             slidesData={headLineData}
@@ -114,7 +116,7 @@ const HomeContent = () => {
           />
         </div>
         <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
-        <div className={`sub-cont ${cardsVisible ? "fade-in" : ""}`} id="reviews" ref={cardsRef}>
+        <div className="sub-cont" id="reviews" ref={cardsRef}>
           <div className="sub-cont-head">
             <h1>Tech Review</h1>
           </div>
@@ -125,7 +127,7 @@ const HomeContent = () => {
             <Review newsData={newsData} /> 
           </div>
         )}
-        <div className={`sub-cont ${cardsVisible ? "fade-in" : ""}`} id="news" ref={cardsRef}>
+        <div className="sub-cont" id="news" ref={cardsRef}>
           <div className="sub-cont-head">
             <h1>Tech News</h1>
           </div>
@@ -137,7 +139,6 @@ const HomeContent = () => {
           </div>
         )}
       </div>
-
     </div>
   );
 };

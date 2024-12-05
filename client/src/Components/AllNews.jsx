@@ -9,6 +9,7 @@ const AllNewsPage = () => {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [newsData, setNewsData] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
   const newsContentRef = useRef(null);
 
   useEffect(() => {
@@ -16,8 +17,10 @@ const AllNewsPage = () => {
       try {
         const RevApiData = await fetchArticleData();
         setCards(RevApiData); // Set the shuffled data to the cards state
+        setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error("Error fetching review data:", error);
+        setLoading(false); // Ensure loading is set to false even if an error occurs
       }
     };
 
@@ -60,6 +63,14 @@ const AllNewsPage = () => {
 
   return (
     <div className="allnews-all-cards-page">
+      {/* Show the loading overlay if loading is true */}
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <span>Loading...</span>
+        </div>
+      )}
+      
       <SearchBar
         value={searchTerm}
         onChange={handleSearchChange}

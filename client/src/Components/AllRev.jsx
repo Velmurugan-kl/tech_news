@@ -10,15 +10,19 @@ const AllCardsPage = () => {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [newsData, setNewsData] = useState(null);
+  const [loading, setLoading] = useState(true); // State for loading
   const newsContentRef = useRef(null);
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true); // Set loading to true when data fetching starts
       try {
         const RevApiData = await fetchReviewData();
         setCards(RevApiData); // Set the fetched data to the cards state
       } catch (error) {
         console.error("Error fetching review data:", error);
+      } finally {
+        setLoading(false); // Set loading to false when data fetching is done
       }
     };
 
@@ -58,6 +62,13 @@ const AllCardsPage = () => {
 
   return (
     <div className="all-cards-page">
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
+
       <SearchBar value={searchTerm} onChange={handleSearchChange} onSubmit={handleSearchSubmit} />
       <h1>All Reviews</h1>
       <div className="cards-grid">
